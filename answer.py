@@ -21,9 +21,13 @@ def fitness(path):
     return total_distance
 
 # Select best path out of random grouping
+# def select(population):
+#     tournament = random.sample(population, 5)
+#     return max(tournament, key=fitness)
+
 def select(population):
-    tournament = random.sample(population, 5)
-    return max(tournament, key=fitness)
+    middle = len(population) // 2
+    return [population[i] if fitness(population[i]) < fitness(population[i + middle]) else population[i + middle] for i in range(middle)]
 
 def crossover(parent1, parent2):
     start = random.randint(0, len(parent1) - 1)
@@ -64,19 +68,22 @@ def traveling_salesman_ga():
     population = [generate_path(POINTS) for _ in range(POP_SIZE)]
 
     for _ in range(GEN_COUNT):
-        new_population = []
-
-        # take select best parents, crossover them an return their mutated children
-        for _ in range(POP_SIZE):
-            parent1, parent2 = select(population), select(population)
-            child = crossover(parent1, parent2)
-            new_population.extend([mutate(child)])
-        population = new_population
+        better_half = select(population)
+        print("better_half", len(better_half))
     
-    best_individual = max(population, key=fitness)
-    best_value = fitness(best_individual)
+        # new_population = []
 
-    return best_value, best_individual
+        # # take select best parents, crossover them an return their mutated children
+        # for _ in range(POP_SIZE):
+        #     parent1, parent2 = select(population), select(population)
+        #     child = crossover(parent1, parent2)
+        #     new_population.extend([mutate(child)])
+        # population = new_population
+    
+    # best_individual = max(population, key=fitness)
+    # best_value = fitness(best_individual)
+
+    # return best_value, best_individual
 
 
 def random_path_fitness():
