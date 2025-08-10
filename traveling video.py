@@ -106,7 +106,7 @@ def random_path_fitness():
     avg_fitness = sum(fitness(path) for path in population) / POP_SIZE
     return avg_fitness
 
-points = [(0, 0), (1, 5), (5, 3), (3, 1), (2, 2)]
+points = [(0, 0), (1, 5), (5, 3), (3, 1), (2, 2), (3,6), (8,7), (2,6), (10,0)]
 
 def run():
     initial_population = generate_random_paths(len(POINTS))
